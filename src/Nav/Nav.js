@@ -58,8 +58,8 @@ container = React.createRef();
                     </Link>
                   </li>
                   <li>
-                    <Link to='/cyphers' className='mobileNavLink' onClick={this.handleMenuClick}>
-                      Cyphers
+                    <Link to='/ciphers' className='mobileNavLink' onClick={this.handleMenuClick}>
+                      Ciphers
                     </Link>
                   </li>
                 </ul>
@@ -88,8 +88,8 @@ container = React.createRef();
           </Link>
           </li>
           <li>
-          <Link to='/cyphers' className='mobileNavLink' onClick={this.handleMenuClick}>
-            Cyphers
+          <Link to='/ciphers' className='mobileNavLink' onClick={this.handleMenuClick}>
+            Ciphers
           </Link>
           </li>
           </ul>
