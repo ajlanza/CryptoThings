@@ -1,0 +1,110 @@
+.hideThis {
+    background-color: snow;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+  }
+  .navContainer {
+      position: absolute;
+      display: none;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: snow
+    }
+    
+  .homeIcon{
+     height: 1.2em;
+     width: 1.2em;
+     margin-left: 0px;
+  }
+  
+    
+    .bigScreenContainer{
+      display: flex;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      justify-content: space-between;
+      background-color: grey;
+      z-index: 2;
+      border-bottom: 2px solid black;
+      margin-bottom: 0px;
+    }
+  
+    .homeLink {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      margin-left: 0px;
+      width: 100%;
+      padding-left: 10px;
+      flex-shrink: 2;
+    }
+    
+    .otherLinks {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+      padding-right: 10px;
+    }
+    
+    .navLink{
+      display: inline-block;
+    }
+    
+    a{
+      color: black;
+    }
+    
+    .button {
+      padding: 0;
+      width: 35px;
+      border:0;
+      cursor: pointer;
+      outline: 0;
+      font-size: 20px;
+      background-color: snow;
+      color: black;
+    }
+    
+    .dropdown { 
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 200px;
+      background-color: snow;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+      text-align: left;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    li {
+      padding: 8px 12px;
+      font-family: 'Roboto';
+    }
+    
+    @media only screen and (max-width: 360px) {
+      .bigScreenContainer {
+        display: none;
+      }
+      .navContainer {
+        display: inline-block;
+      }
+    }
+    
+    @media screen and (min-width: 361) {
+      .navContainer {
+        font-size: 30px;
+      }
+    }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './hero.css';
+import './Hero.css';
 
 export default class Hero extends Component{
   constructor(props){
@@ -24,9 +24,8 @@ export default class Hero extends Component{
   }
   render(){
     return(
-      <h1>
-        CryptoThings
-        {/* <span class='cryptoEnd'>{this.state.name[this.state.index]}</span> */}
+      <h1 className='hero'>
+        Crypto:
       </h1>    
     );
   }
