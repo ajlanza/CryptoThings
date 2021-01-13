@@ -41,7 +41,6 @@ const CipherHelpers = {
                      'Z','Y','X','W','V','U','T','S','R','Q','P','O','N','M','L','K','J','I','H','G','F','E','D','C','B','A'];
     let result = '';
     for(let i = 0; i < toEncrypt.length; i++){
-        console.log(original.indexOf(i))
         if(original.indexOf(toEncrypt.charAt(i)) === -1){
           result += toEncrypt.charAt(i);
         }
@@ -50,9 +49,11 @@ const CipherHelpers = {
         }
     }
     return result;
-  }
-
+  }, 
   
+  rot13(toEncrypt) {
+    return (this.ceaser(toEncrypt, 13));
+  },
 
 }
 

@@ -41,18 +41,9 @@ export default class Ciphers extends Component{
     
   handleSubmit = ev => {
     ev.preventDefault();
-    if(this.state.toEncrypt != null) {
-      if(this.state.cipherType  === 'ceaser'){
-        this.setState({
-          encrypted: CipherHelpers.ceaser(this.state.toEncrypt, this.state.shift),
-        });
-      }
-      if(this.state.cipherType === 'atbash'){
-        this.setState({
-          encrypted: CipherHelpers.atbash(this.state.toEncrypt)
-        });
-      } 
-    }
+    this.setState({
+       encrypted: CipherHelpers[this.state.cipherType](this.state.toEncrypt, this.state.shift)
+    });
   }
 
 
@@ -63,13 +54,14 @@ export default class Ciphers extends Component{
       <form className='cipherForm'>
         <label htmlFor='cipherType'>Cipher Type</label>
         <select required name='type' id='type' onChange={this.handleCipherType}>
-            <option value ='ceaser'>Ceaser</option>
-            <option value ='atbash'>Atbash</option>
+            <option value='ceaser'>Ceaser</option>
+            <option value='atbash'>Atbash</option>
+            <option value='rot13'>ROT13</option> 
         </select>
         {this.state.cipherType === 'ceaser' 
           ? <>
             <label htmlFor='cipherType'>Shift:</label>
-            <input type='number' name='shift' id='shift' onChange={this.handleShift}/>
+            <input type='number' name='shift' id='shift' onChange={this.handleShift} placeholder={this.state.shift}/>
             </>
           : ''
         }
