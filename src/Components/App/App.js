@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import Nav from './Nav/Nav';
-import Hero from './Hero/Hero';
-import Creatures from './Creatures/Creatures';
-import Currency from './Currency/Currency';
-import Ciphers from './Ciphers/Ciphers';
+import Nav from '../Nav/Nav';
+import Hero from '../Hero/Hero';
+import Creatures from '../Creatures/Creatures';
+import Currency from '../Currency/Currency';
+import Ciphers from '../Ciphers/Ciphers';
 
 function App() {
   return (
