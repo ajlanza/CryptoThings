@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Ciphers.css';
+import CipherHelpers from '../../Services/CipherHelpers';
+
 
 export default class Ciphers extends Component{
   constructor(props){
@@ -39,36 +41,11 @@ export default class Ciphers extends Component{
     
   handleSubmit = ev => {
     ev.preventDefault();
-    const toEncrypt = this.state.toEncrypt;
-    const shift = this.state.shift;
-    let encrypted = '';
-    let encryptedAsciiChar = '';
-    for(let i = 0; i < toEncrypt.length; i++){
-      let asciiChar = toEncrypt.charCodeAt(i);
-      if(asciiChar >= 65 && asciiChar <= 90) {
-        encryptedAsciiChar = asciiChar + shift;
-        if(encryptedAsciiChar > 90) {
-          encryptedAsciiChar = encryptedAsciiChar - 90 + 64;
-        }
-        encrypted += String.fromCharCode(encryptedAsciiChar);
-        continue;
-      }
-      if(asciiChar >= 97 && asciiChar <= 122) {
-        encryptedAsciiChar = asciiChar + shift;
-        if(encryptedAsciiChar > 122) {
-          encryptedAsciiChar = encryptedAsciiChar - 122 + 96;
-        }
-        encrypted += String.fromCharCode(encryptedAsciiChar);
-        continue;
-      }
-      else{
-        encrypted += toEncrypt.charAt(i);
-      }   
+    if(this.state.toEncrypt != null) {
+      this.setState({
+        encrypted: CipherHelpers.ceaser(this.state.toEncrypt, this.state.shift),
+      })
     }
-    this.setState({
-      encrypted: encrypted,
-    })
-    console.log(this.state.encrypted);
   }
 
 
@@ -91,7 +68,7 @@ export default class Ciphers extends Component{
         }
         <label htmlFor='textToEncrypt'>Text to encrypt</label>
         
-        <textarea name='textToEncrypt' id='textToEncrypt' onChange={this.handleTextInput}/>
+        <textarea name='textToEncrypt' id='textToEncrypt' onChange={this.handleTextInput} />
         <button onClick={this.handleSubmit}>Submit</button>
       </form>
       <div className='result'><p>{this.state.encrypted}</p></div>
