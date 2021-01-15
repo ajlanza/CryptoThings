@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import data from '../../Assets/data';
 import './Ciphers.css';
 import CipherHelpers from '../../Services/CipherHelpers';
 
@@ -7,10 +8,9 @@ export default class Ciphers extends Component{
   constructor(props){
     super(props);
       this.state = {
-        answer: '',
         encrypted: '',
         cipherType: 'ceaser',
-        shift: 0
+        shift: 'Enter a number'
       };
     }
   
@@ -28,11 +28,8 @@ export default class Ciphers extends Component{
 
   handleShift = ev =>{
     let shift = parseInt(ev.target.value);
-    if(shift === null || shift === undefined || isNaN(shift)) {
-      shift = 0;
-    }
-    if(shift > 26 || shift < -26){
-      shift = shift % 26;
+    if(!shift){
+      shift = 'Enter a number';
     }
     this.setState({
       shift: shift,
@@ -46,7 +43,6 @@ export default class Ciphers extends Component{
     });
   }
 
-
   render(){
     return (
       <>
@@ -54,11 +50,15 @@ export default class Ciphers extends Component{
       <form className='cipherForm'>
         <label htmlFor='cipherType'>Cipher Type</label>
         <select required name='type' id='type' onChange={this.handleCipherType}>
-            <option value='ceaser'>Ceaser</option>
-            <option value='atbash'>Atbash</option>
-            <option value='rot13'>ROT13</option>
-            <option value='railFence'>Rail-fence</option> 
+          {data.cipher.map(cipher =>
+            <option value={cipher.name} key={cipher.name} shift={cipher.shift}>{cipher.type}</option>
+          )}
         </select>
+        {/* {data.cipher.map(cipher =>{
+          if(cipher.name === this.state.cipherType) {
+            console.log(cipher.description);
+          }})} */}
+        
         {this.state.cipherType === 'ceaser' || this.state.cipherType === 'railFence'
           ? <>
             <label htmlFor='cipherType'>Shift/Key:</label>
@@ -71,6 +71,7 @@ export default class Ciphers extends Component{
         <textarea name='textToEncrypt' id='textToEncrypt' onChange={this.handleTextInput} />
         <button onClick={this.handleSubmit}>Submit</button>
       </form>
+      <h2>Encrypted</h2>
       <div className='result'><p>{this.state.encrypted}</p></div>
       </>
     );

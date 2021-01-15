@@ -3,6 +3,12 @@ const CipherHelpers = {
   ceaser(toEncrypt, shift) {
     let encrypted = '';
     let encryptedAsciiChar = '';
+    if(shift === null || shift === undefined || isNaN(shift)) {
+        shift = 0;
+      }
+      if(shift > 26 || shift < -26){
+        shift = shift % 26;
+      }
     for(let i = 0; i < toEncrypt.length; i++){
       let asciiChar = toEncrypt.charCodeAt(i);
       if(asciiChar >= 65 && asciiChar <= 90) {
