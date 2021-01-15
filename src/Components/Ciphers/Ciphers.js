@@ -56,11 +56,12 @@ export default class Ciphers extends Component{
         <select required name='type' id='type' onChange={this.handleCipherType}>
             <option value='ceaser'>Ceaser</option>
             <option value='atbash'>Atbash</option>
-            <option value='rot13'>ROT13</option> 
+            <option value='rot13'>ROT13</option>
+            <option value='railFence'>Rail-fence</option> 
         </select>
-        {this.state.cipherType === 'ceaser' 
+        {this.state.cipherType === 'ceaser' || this.state.cipherType === 'railFence'
           ? <>
-            <label htmlFor='cipherType'>Shift:</label>
+            <label htmlFor='cipherType'>Shift/Key:</label>
             <input type='number' name='shift' id='shift' onChange={this.handleShift} placeholder={this.state.shift}/>
             </>
           : ''

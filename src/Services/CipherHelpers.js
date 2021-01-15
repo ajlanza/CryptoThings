@@ -55,6 +55,44 @@ const CipherHelpers = {
     return (this.ceaser(toEncrypt, 13));
   },
 
+  railFence(toEncrypt, key) {
+    // Need at least 2 rows for the cipher to work
+    if(!key || key < 2){
+      key = 2;
+    }
+    let result = '';
+    let reverse = false;
+    let row = 0;
+    let rows = [];
+    // Set up the number of rows to traverse over
+    for(let i = 0; i < key; i++){
+        rows[i] = [];
+    }
+    // Go through the string one character at a time
+    for(let letterPosition = 0; letterPosition < toEncrypt.length; letterPosition++){
+      rows[row] += toEncrypt[letterPosition];
+      // If we are on the last row, travel backwards through the rows
+      if(row === key - 1){
+        reverse = true;
+      }
+      // If we are on the first row, we want to travel forward through the rows
+      if(row === 0){
+        reverse = false;
+      }
+      if(reverse){
+        row--;
+      }
+      else {
+        row++;
+      }
+    }
+    // Join all our rows together and return the string
+    rows.forEach(row =>
+      result += row
+    )
+    return result;
+  }
+
 }
 
 export default CipherHelpers;
