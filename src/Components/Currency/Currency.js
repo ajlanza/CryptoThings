@@ -8,12 +8,15 @@ export default class Currency extends Component{
     this.state = {
       isLoading: true,
       trending: [],
-      error: null
+      error: null,
+      currentCoin: null,
+      description: null,
+      // hide: true
     };
   }
 
   componentDidMount() {
-    CryptoApiService.getTrendingCrypto()
+    CryptoApiService.getTrendingCoins()
     .then(data => {
       this.setState({
         trending: data,
@@ -23,9 +26,20 @@ export default class Currency extends Component{
     .catch(error => this.setState({error, isLoading: false})); 
   }
 
+  showCoinDescription(id) {
+    CryptoApiService.getCoinDescription(id)
+    .then(data => {
+      this.setState({
+        description: data,
+        currentCoin: id,
+      })
+    })
+    .catch(error => this.setState({error}));
+  }
+
   render(){
-    const { isLoading, trending, error } = this.state; 
-    console.log(trending)
+    const { isLoading, trending, error, currentCoin } = this.state; 
+   
     return (
       <>
       <h1>Crypto:Currency</h1>
@@ -35,7 +49,16 @@ export default class Currency extends Component{
           <h2>Top 7 trending cryptocurrencies from <a href='https://www.coingecko.com/en'>CoinGecko</a></h2>
           <ul>
             {trending.coins.map(coin => 
-              <li key={coin.item.id}><img src={coin.item.thumb} alt={`${coin.item.name} logo`} />{coin.item.name}</li>)}     
+            <div key={coin.item.id}>
+              <li>
+                <img src={coin.item.thumb} alt={`${coin.item.name} logo`} />
+                <button type='button' onClick={() => this.showCoinDescription(coin.item.id)}>{coin.item.name}</button>
+              </li>
+              {currentCoin === coin.item.id 
+                ? <li key={coin.item.name}>{this.state.description}</li>
+                : ''
+              }
+              </div>)}     
           </ul>
           </>
           
