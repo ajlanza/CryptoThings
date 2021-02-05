@@ -1,50 +1,46 @@
 import React, { Component } from 'react';
+import './Currency.css';
 import CryptoApiService from '../../Services/CryptoApiService';
 
 export default class Currency extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       trending: [],
+      error: null
     };
   }
 
   componentDidMount() {
-    let crypto = [];
     CryptoApiService.getTrendingCrypto()
     .then(data => {
-      data.coins.map(item => crypto.push(item.item.id)
-    )})
-    .then(
       this.setState({
-        trending: crypto,
+        trending: data,
+        isLoading: false,
       })
-    );
-    console.log('didmount state', this.state)
-  } 
-  
-  // getCrypto() {
-  //     let crypto = [];
-  //     CryptoApiService.getTrendingCrypto()
-  //     .then(data => {
-  //       data.coins.map(item => crypto.push(item.item.id)
-  //     )})
-  //     console.log('getcrypto', crypto);
-  //     return crypto;
-  // }
+    }) 
+    .catch(error => this.setState({error, isLoading: false})); 
+  }
 
   render(){
-
+    const { isLoading, trending, error } = this.state; 
+    console.log(trending)
     return (
       <>
       <h1>Crypto:Currency</h1>
-      <ul>
-        {this.state.trending.length > 0 
-          ? this.state.trending.map(coin => <li key={coin}>{coin}</li>)
-          : <li>Trending crypto not found</li>
-        }      
-      </ul>
-      {console.log(this.state)}
+      {error ? <p>{error.message}</p> : ''}
+      {!isLoading 
+        ? <>
+          <h2>Top 7 trending cryptocurrencies from <a href='https://www.coingecko.com/en'>CoinGecko</a></h2>
+          <ul>
+            {trending.coins.map(coin => 
+              <li key={coin.item.id}><img src={coin.item.thumb} alt={`${coin.item.name} logo`} />{coin.item.name}</li>)}     
+          </ul>
+          </>
+          
+        : (<p>Loading</p>)
+      }      
       </>
     );
   }
